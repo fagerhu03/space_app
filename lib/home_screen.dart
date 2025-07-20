@@ -1,5 +1,7 @@
+import 'planet_detail_screen.dart' hide planetData;
 import 'package:flutter/material.dart';
-import 'planet_detail_screen.dart';
+import 'planet_data.dart';
+
 
 class Planet {
   final String name;
@@ -36,32 +38,29 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void navigateToPlanetDetail(BuildContext context, String planetName) {
+    final selectedPlanetData = planetData.firstWhere(
+          (planet) => planet['Planet Name'].toLowerCase() == planetName.toLowerCase(),
+      orElse: () => <String, dynamic>{},
+    );
+
+    if (selectedPlanetData.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlanetDetailScreen(data: selectedPlanetData),
+        ),
+      );
+    } else {
+      print('Planet not found: $planetName');
+    }
+  }
+
   void previousPage() {
     if (currentIndex > 0) {
       _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     }
   }
-
-
-  final List<Map<String, dynamic>> planetData = [
-    // (Planet data unchanged — already includes all 9 planets + Sun)
-    // You can truncate this list for readability in actual edits...
-  ];
-
-  void navigateToPlanetDetail(BuildContext context, String planetName) {
-    final selectedPlanetData = planetData.firstWhere(
-          (planet) => planet['Planet Name'].toLowerCase() == planetName.toLowerCase(),
-      orElse: () => throw Exception('Planet not found'),
-    );
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PlanetDetailScreen(data: selectedPlanetData),
-      ),
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          // Header with background, gradient and stacked text
           Stack(
             children: [
               Image.asset(
@@ -97,10 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 right: 0,
                 child: Center(
                   child: Text(
-                    "Explore",style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500,),
+                    "Explore",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -153,19 +153,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 16),
 
-          // Navigation buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               FloatingActionButton(
                 onPressed: previousPage,
                 backgroundColor: Colors.redAccent,
-                child: const Icon(Icons.arrow_back,color: Colors.white,),
+                child: const Icon(Icons.arrow_back, color: Colors.white),
               ),
               FloatingActionButton(
                 onPressed: nextPage,
                 backgroundColor: Colors.redAccent,
-                child: const Icon(Icons.arrow_forward,color: Colors.white,),
+                child: const Icon(Icons.arrow_forward, color: Colors.white),
               ),
             ],
           ),
@@ -178,7 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => navigateToPlanetDetail(context, planet.name),
-
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent,
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -189,9 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Explore ${planet.name}", style: const TextStyle(fontSize: 18,color: Colors.white,)),
+                    Text("Explore ${planet.name}", style: const TextStyle(fontSize: 18, color: Colors.white)),
                     const SizedBox(width: 8),
-                    const Icon(Icons.arrow_forward,color: Colors.white,),
+                    const Icon(Icons.arrow_forward, color: Colors.white),
                   ],
                 ),
               ),

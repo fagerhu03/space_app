@@ -42,7 +42,7 @@ class PlanetDetailScreen extends StatelessWidget {
                     right: 0,
                     child: Center(
                       child: Text(
-                        data['Planet Name'],
+                        data['Planet Name'] ?? 'Unknown Planet',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -55,7 +55,7 @@ class PlanetDetailScreen extends StatelessWidget {
                     left: 16,
                     bottom: 8,
                     child: Text(
-                      data['Title'],
+                      data['Title'] ?? '',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 16,
@@ -75,7 +75,7 @@ class PlanetDetailScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ModelViewer(
-                  src: 'assets/models/${data['3D Model']}',
+                  src: 'assets/models/${data['3D Model'] ?? 'earth.glb'}',
                   autoRotate: true,
                   cameraControls: true,
                   backgroundColor: Colors.transparent,
@@ -95,7 +95,7 @@ class PlanetDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                data['About'],
+                data['About'] ?? 'No description available.',
                 style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 16,
@@ -149,6 +149,54 @@ class PlanetDetailScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// FIXED: Use this in navigation_push_example.dart
+final List<Map<String, dynamic>> planetData = [
+  {
+    "Planet Name": "Mercury",
+    "3D Model": "mercury.glb",
+    "Title": "Mercury: The Closest Planet",
+    "About": "Mercury is the smallest planet in our solar system and nearest to the Sun...",
+    "Distance from Sun (km)": "57,909,227",
+    "Length of Day (hours)": "1407.60",
+    "Orbital Period (Earth years)": "0.24",
+    "Radius (km)": "2,439.70",
+    "Mass (kg)": "3.301 × 10²³",
+    "Gravity (m/s²)": "3.70",
+    "Surface Area (km²)": "7.48 × 10⁷",
+  },
+  // Add other planets here...
+];
+
+void navigateToPlanetDetail(BuildContext context, String planetName) {
+  final selectedPlanetData = planetData.firstWhere(
+        (planet) => planet['Planet Name'].toLowerCase() == planetName.toLowerCase(),
+      orElse: () => {
+      "Planet Name": "Unknown",
+      "3D Model": "earth.glb",
+      "Title": "Data not found",
+      "About": "Sorry, no information is available for this planet.",
+      "Distance from Sun (km)": "-",
+      "Length of Day (hours)": "-",
+      "Orbital Period (Earth years)": "-",
+      "Radius (km)": "-",
+      "Mass (kg)": "-",
+      "Gravity (m/s²)": "-",
+      "Surface Area (km²)": "-",
+
+
+    },
+  );
+
+  if (selectedPlanetData != null) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlanetDetailScreen(data: selectedPlanetData),
       ),
     );
   }

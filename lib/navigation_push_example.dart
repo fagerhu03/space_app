@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'planet_detail_screen.dart'; // make sure this import matches your file location
-
+import 'planet_detail_screen.dart';
 final List<Map<String, dynamic>> planetData = [
   {
     "Planet Name": "Sun",
@@ -123,7 +122,7 @@ final List<Map<String, dynamic>> planetData = [
 
 void navigateToPlanetDetail(BuildContext context, String planetName) {
   final selectedPlanetData = planetData.firstWhere(
-        (planet) => planet['Planet Name'] == planetName,
+        (planet) => planet['Planet Name'].toLowerCase() == planetName.toLowerCase(),
     orElse: () => throw Exception('Planet not found'),
   );
 

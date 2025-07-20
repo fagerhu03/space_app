@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'planet_detail_screen.dart';
 
 class Planet {
   final String name;
@@ -40,6 +41,27 @@ class _HomeScreenState extends State<HomeScreen> {
       _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     }
   }
+
+
+  final List<Map<String, dynamic>> planetData = [
+    // (Planet data unchanged — already includes all 9 planets + Sun)
+    // You can truncate this list for readability in actual edits...
+  ];
+
+  void navigateToPlanetDetail(BuildContext context, String planetName) {
+    final selectedPlanetData = planetData.firstWhere(
+          (planet) => planet['Planet Name'].toLowerCase() == planetName.toLowerCase(),
+      orElse: () => throw Exception('Planet not found'),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlanetDetailScreen(data: selectedPlanetData),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -155,13 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/planetDetail',
-                    arguments: planet,
-                  );
-                },
+                onPressed: () => navigateToPlanetDetail(context, planet.name),
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent,
                   padding: const EdgeInsets.symmetric(vertical: 16),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:space_app/home_screen.dart';
+import 'package:space_app/login_screen.dart';
 import 'package:space_app/splash_screen.dart';
 
 void main() {
@@ -13,7 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(), // Start with your custom splash
+        initialRoute: '/splash',
+        routes: {
+          '/splash': (context) => const SplashScreen(),
+          '/login': (context) => const LoginScreen(),
+          '/home': (context) => const HomeScreen(),
+        }
     );
   }
 }

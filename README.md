@@ -88,10 +88,10 @@ assets/
 ---
 
 ## 🖼️ Screenshots
+| Welcome Screen | Home Screen | Planet Detail Page |
+|---------------|-------------|--------------------|
+| <img src="screenshoots/splash.png" width="200"/> | <img src="screenshoots/detalis.png" width="200"/> | <img src="screenshoots/home.png" width="200"/> |
 
-| Splash Screen               | Home Screen                | Planet Detail Page        |
-|----------------------------|----------------------------|---------------------------|
-| ![](screenshoots/Screenshot 1.png) | ![](screenshoot/Screenshot 2.png) | ![](screenshoot/Screenshot 3.png) |
 
 > 💡 To display screenshots, add them inside `assets/screens/` and update the paths above if needed.
 
@@ -99,8 +99,7 @@ assets/
 
 ## 🎥 Demo Video
 
-https://user-images.githubusercontent.com/your-username/demo.mp4  
-*(Upload your screen recording to GitHub or YouTube and replace this link)*
+https://github.com/fagerhu03/space_app/blob/main/screenshoots/space%20app.mkv
 
 ---
 
@@ -137,6 +136,3 @@ Feel free to reach out for suggestions, bug reports, or contributions:
 📧 **[fagerhu03@gmail.com](mailto:fagerhu03@gmail.com)**
 
 ---
-
-> “The Earth is the cradle of humanity, but one cannot live in the cradle forever.”  
-> — Konstantin Tsiolkovsky
